@@ -6,10 +6,12 @@ public class test01 {
 		// TODO Auto-generated method stub
 
 		System.out.println("༼ つ ◕_◕ ༽つ༼ つ ◕_◕ ༽つ");
-		
-		//gjgsksksh
-		
-		//asiohjowqiedfoihasdhuo
-		
+
+		System.out.println("(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)");
+
+		// gjgsksksh
+
+		// asiohjowqiedfoihasdhuo
+
 	}
 }
