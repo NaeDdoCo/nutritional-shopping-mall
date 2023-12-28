@@ -12,6 +12,8 @@ public class test01 {
 		System.out.println("༼ つ ◕_◕ ༽つ༼ つ ◕_◕ ༽つ");
 		
 		System.out.println("༼ つ ◕_◕ ༽つ༼ つ ◕_◕ ༽つ");
+		
+		System.out.println("(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)(ʘ ͟ʖ ʘ)");
 
 		// gjgsksksh
 
