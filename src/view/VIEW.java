@@ -2,6 +2,9 @@ package view;
 
 import java.util.Scanner;
 
+
+// 택종 작업 영역
+
 public class VIEW {
 	private Scanner sc;
 	public VIEW() {
