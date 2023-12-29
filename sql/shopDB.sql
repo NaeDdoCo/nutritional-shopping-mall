@@ -65,7 +65,7 @@ CREATE TABLE COUPON (
 	-- 쿠폰 번호 (영문과 숫자가 혼합된 문자열 10자)
     CPID VARCHAR(10) PRIMARY KEY,
     -- 회원 아이디 (MEMBER 테이블의 MID를 참조)
-    MID VARCHAR(15),
+    MID VARCHAR(15) NOT NULL,
     -- 제품 번호 (PRODUCT 테이블의 PID를 참조)
     PID INT,
     -- 쿠폰 이름
@@ -78,11 +78,8 @@ CREATE TABLE COUPON (
     PERIOD TIMESTAMP NOT NULL,   
     -- 5. 할인율 (%로 저장)
     DISCOUNT INT NOT NULL,
-    -- 사용 여부 (사용가능 TRUE(1), 사용불가 FALSE(0))
-    -- BOOLEAN는 지원하지 않는다
-    -- 대신 NUMBER(1)을 사용해 숫자를 1개 받아서 사용하자
-    -- DEFAULT와 NOT NULL의 순서
-    USE NUMBER(1) DEFAULT 1 NOT NULL,
+    -- 사용 여부 (사용가능 TRUE, 사용불가 FALSE)
+    USE BOOLEAN DEFAULT TRUE NOT NULL,
     -- 적용 가능한 카테고리
     CATEGORY VARCHAR(50),  
 );
