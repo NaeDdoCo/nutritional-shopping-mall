@@ -25,7 +25,7 @@ public class CouponDTO {
 	private int discount;
 
 	// 쿠폰의 사용여부
-	private boolean use;
+	private boolean used;
 
 	// 쿠폰의 카테고리
 	private String category;
@@ -78,12 +78,12 @@ public class CouponDTO {
 		this.discount = discount;
 	}
 
-	public boolean isUse() {
-		return use;
+	public boolean isUsed() {
+		return used;
 	}
 
-	public void setUse(boolean use) {
-		this.use = use;
+	public void setUsed(boolean used) {
+		this.used = used;
 	}
 
 	public String getCategory() {
@@ -97,7 +97,7 @@ public class CouponDTO {
 	@Override
 	public String toString() {
 		return "CouponDTO [CPID=" + CPID + ", MID=" + MID + ", PID=" + PID + ", couponName=" + couponName + ", period="
-				+ period + ", discount=" + discount + ", use=" + use + ", category=" + category + "]";
+				+ period + ", discount=" + discount + ", use=" + used + ", category=" + category + "]";
 	}
 
 }
