@@ -25,7 +25,7 @@ public class CouponDTO {
 	private int discount;
 
 	// 쿠폰의 사용여부
-	private boolean used;
+	private String used;
 
 	// 쿠폰의 카테고리
 	private String category;
@@ -78,11 +78,11 @@ public class CouponDTO {
 		this.discount = discount;
 	}
 
-	public boolean isUsed() {
+	public String getUsed() {
 		return used;
 	}
 
-	public void setUsed(boolean used) {
+	public void setUsed(String used) {
 		this.used = used;
 	}
 
