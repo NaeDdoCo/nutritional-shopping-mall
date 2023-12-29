@@ -77,9 +77,9 @@ CREATE TABLE COUPON (
     -- 5. 할인율 (%로 저장)
     DISCOUNT INT NOT NULL,
     -- 사용 여부 (사용가능 TRUE, 사용불가 FALSE)
-    USED BOOLEAN DEFAULT TRUE NOT NULL,
+    USED VARCHAR2(10) DEFAULT '미사용' NOT NULL,
     -- 적용 가능한 카테고리
-    CATEGORY VARCHAR2(50)
+    CATEGORY VARCHAR2(50) NOT NULL
 );
 
 --구매내역 테이블
@@ -103,3 +103,19 @@ CREATE TABLE BUYINFO (
     -- 9. 구매일
     BUYDATE DATE NOT NULL
 );
+-------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+--쿠폰 목록
+SELECT * FROM COUPON;
+--쿠폰 선택
+SELECT CPID, DISCOUNT, MID FROM COUPON WHERE CPID = 'testcp0001';
+--쿠폰 사용여부 변경
+UPDATE COUPON SET USED = '사용' WHERE CPID = 'testcp0001';
+--쿠폰 추가하는 기능
+INSERT INTO COUPON (CPID, MID, CPNAME, PERIOD, DISCOUNT, CATEGORY) VALUES ('testcp0001', 'teemo', '테스트쿠폰', TO_TIMESTAMP('2099-12-30 23:59:59', 'YYYY-MM-DD HH24:MI:SS'), 50, '눈');
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DROP TABLE MEMBER;
+DROP TABLE PRODUCT;
+DROP TABLE CART;
+DROP TABLE COUPON;
+DROP TABLE BUYINFO;
