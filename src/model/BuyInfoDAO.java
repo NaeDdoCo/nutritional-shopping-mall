@@ -3,7 +3,8 @@ package model;
 import java.util.ArrayList;
 
 public class BuyInfoDAO {
-	// 배송 상태 확인
+	
+	// TODO: 배송 상태 확인
 	private BuyInfoDTO sellectOne(BuyInfoDTO buyInfoDTO)
 	{
 //	    - buyInfoDTO null 체크
@@ -11,7 +12,7 @@ public class BuyInfoDAO {
 		return null;
 	}
 
-	// 주문 목록 확인
+	// TODO: 주문 목록 확인
 	private ArrayList<BuyInfoDTO> selectAll(BuyInfoDTO buyInfoDTO)
 	{
 //	    - buyInfoDTO null 체크
@@ -29,6 +30,8 @@ public class BuyInfoDAO {
 		return false;
 	}
 	
+	// TODO: 배송 상태 변경
+	// TODO: 환불 & 취소
 	private boolean update(BuyInfoDTO buyInfoDTO)
 	{
 		return false;
