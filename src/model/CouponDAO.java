@@ -21,7 +21,7 @@ public class CouponDAO {
 	// ROne, 쿠폰번호 확인
 	// 선택한 쿠폰번호와 같은 행의 쿠폰번호와 할인율을 가져온다
 	// MID(쿠폰보유회원)도 같이 가져와서 유효성 검사에 사용
-	public static final String selectOne = "SELECT CPID, DISCOUNT, MID FROM COUPON WHERE CPID = ?";
+	public static final String selectOne = "SELECT CPID, DISCOUNT, MID FROM COUPON WHERE CPID = '?'";
 
 	// C, 쿠폰 추가 및 부여
 	// 생성해서 부여할 때 생성해야 하는 컬럼
@@ -29,20 +29,20 @@ public class CouponDAO {
 	// 미부여 : 적용상품 null, 사용여부는 미사용으로 기본값 지정
 	// 조건 : 받을 회원()
 	private static final String insert = "INSERT INTO COUPON " + "(CPID, MID, CPNAME, PERIOD, DISCOUNT, CATEGORY) "
-			+ "VALUES (?, ?, ?, ?, ?, ?)";
+			+ "VALUES ('?', '?', '?', '?', ?, '?')";
 
 	// U, 쿠폰정보변경
 	// 사용하면 쿠폰에 사용여부 갱신
 	// 조건은 입력한 쿠폰번호
-	public static final String update = "UPDATE COUPON SET USED = FALSE WHERE CPID = ?";
+	public static final String update = "UPDATE COUPON SET USED = '사용' WHERE CPID = '?'";
 
 	// D1, 제품 삭제(회수?)
 	// 문제있는 쿠폰을 삭제
-	private static final String deleteCPNAME = "DELETE FROM COUPON WHERE CPNAME = ?";
+	private static final String deleteCPNAME = "DELETE FROM COUPON WHERE CPNAME = '?'";
 
 	// D2, 제품 삭제(회수?)
 	// 쿠폰을 잘못주면 회수
-	private static final String deleteMID = "DELETE FROM COUPON WHERE MID = ?";
+	private static final String deleteMID = "DELETE FROM COUPON WHERE MID = '?'";
 
 	public ArrayList<CouponDTO> selectAll() {
 		// DB에 연결해서 COUPON테이블에 있는 데이터를 불러온다
@@ -111,7 +111,7 @@ public class CouponDAO {
 				couponDTO.setMID(rs.getString("MID"));
 			}
 
-			rs.close();
+			rs.close(); 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,7 +140,6 @@ public class CouponDAO {
 		conn = JDBCUtil.connect();
 
 		try {
-			// 사용하면 USED == FALSE
 			pstmt = conn.prepareStatement(update);
 			pstmt.setString(1, CPID);
 
