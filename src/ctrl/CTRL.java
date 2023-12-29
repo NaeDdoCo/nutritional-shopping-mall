@@ -3,6 +3,8 @@ package ctrl;
 import model.MemberDTO;
 import view.VIEW;
 
+// 깃테스트
+
 public class CTRL {
 	
 	private VIEW view;
