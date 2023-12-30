@@ -1,6 +1,11 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.CouponDTO;
+import model.MemberDTO;
+import model.ProductDTO;
 
 // 택종 작업 영역
 
@@ -40,16 +45,16 @@ public class VIEW {
 	public MemberDTO login() {
 		MemberDTO mDTO = new MemberDTO();
 		System.out.println("ID입력>> ");
-		mDTO.setMid(sc.next());
+		mDTO.setMID(sc.next());
 		System.out.println("PW입력>> ");
-		mDTO.setMpw(sc.next());
+		mDTO.setmPassword(sc.next());
 		return mDTO;
 	}
 	//로그인 결과 출력
 	public void loginResult(MemberDTO data) {
 		if (data != null) {
 			System.out.println("로그인 성공 !");
-			System.out.println(data.getName() + "님, 안녕하세요!");
+			System.out.println(data.getmName() + "님, 안녕하세요!");
 		} else {
 			System.out.println("로그인에 실패하였습니다.. 다시 시도해주세요.");
 		}
@@ -58,23 +63,25 @@ public class VIEW {
 	public void printLoginMenu() {
 		System.out.println("1. 제품 목록 출력");
 		System.out.println("2. 제품 상세정보 출력");
-		System.out.println("3. 제품 추천받기");
-		System.out.println("4. 장바구니");
-		System.out.println("5. 개인 정보 수정");
-		System.out.println("6. 로그아웃");
-		System.out.println("7. 회원탈퇴");
+		System.out.println("3. 장바구니");
+		System.out.println("4. 구매내역 확인");
+		System.out.println("5. 제품 추천받기");
+		System.out.println("6. 개인 정보 수정");
+		System.out.println("7. 로그아웃");
+		System.out.println("8. 회원탈퇴");
+		System.out.println("0. 프로그램 종료");
 	}
 	//제품 목록 출력
-	public void printPlist(ArrayList<Product> datas) {
+	public void printPlist(ArrayList<ProductDTO> datas) {
 		for (ProductDTO data : datas) {
-			System.out.println("제품명: " + data.getPname() + ", 가격: " + data.getSellingPrice + "재고: " + data.getCnt);
+			System.out.println("제품명: " + data.getpName() + ", 가격: " + data.getSellingPrice() + "재고: " + data.getCnt());
 		}
 	}
 	//제품 상세정보 출력
-	public void printPdetails(Product data) {
-		System.out.println(data.getPname + " 의 상세정보입니다.");
-		System.out.println(data.genPname + " 의 카테고리: " + data.Pcategory + ", 원료: " + data.Pingredient + " , 복용방법: "
-				+ data.Pusage + ", 유통기한: " + data.Pexp);
+	public void printPdetails(ProductDTO data) {
+		System.out.println(data.getpName() + " 의 상세정보입니다.");
+		System.out.println(data.getpName() + " 의 카테고리: " + data.getCategory() + ", 원료: " + data.getIngredient() + " , 복용방법: "
+				+ data.getUsage() + ", 유통기한: " + data.getExp());
 		System.out.println("1. 구매하기");
 		System.out.println("2. 장바구니 추가하기");
 		System.out.println("3. 돌아가기");
@@ -106,9 +113,9 @@ public class VIEW {
 		}
 	}
 	//장바구니에 담긴 제품 & 최종금액 출력
-	public void printClist(ArrayList<Product> datas) {
+	public void printClist(ArrayList<ProductDTO> datas) {
 		for (ProductDTO data : datas) {
-			System.out.println("제품명: " + data.getPname() + ", 가격: " + data.getSellingPrice + "재고: " + data.getCnt);
+			System.out.println("제품명: " + data.getpName() + ", 가격: " + data.getSellingPrice() + "재고: " + data.getCnt());
 		}
 		int total = 0;
 		for (int i = 0; i < datas.size(); i++) {
@@ -137,10 +144,10 @@ public class VIEW {
 		return inputYN;
 	}
 	//쿠폰 목록 출력
-	public void printCpList(ArrayList<Coupon> datas) {
+	public void printCpList(ArrayList<CouponDTO> datas) {
 		System.out.println("=====쿠폰 목록=====");
 		for (CouponDTO data : datas) {
-			System.out.println("쿠폰명: " + data.getCpname() + ", 할인율: " + data.getCpDiscount);
+			System.out.println("쿠폰명: " + data.getCouponName() + ", 할인율: " + data.getDiscount());
 		}
 		System.out.println("어떤 쿠폰을 사용하시겠습니까?");
 
