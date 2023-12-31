@@ -138,7 +138,7 @@ public class VIEW {
 			System.out.println((i+1) + ". 제품명:" + datas.get(i).getpName() + ", 가격: " + datas.get(i).getSellingPrice() + ", 수량: " + datas.get(i).getCnt());
 		}
 		int total = 0;
-		for (int i = 0; i < datas.size(); i++) {
+		for (i = 0; i < datas.size(); i++) {
 			total += datas.get(i).getSellingPrice() * datas.get(i).getCnt();
 		}
 		System.out.println("==========================");
