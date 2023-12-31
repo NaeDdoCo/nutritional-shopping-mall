@@ -144,6 +144,19 @@ public class VIEW {
 		System.out.println("==========================");
 		System.out.println("최종 금액은 " + total + "입니다 !");
 	}
+	public void printBuyList(ArrayList<ProductDTO> datas) {
+		System.out.println("===구매 완료 내역===");
+		int i;
+		for (i=0;i<datas.size();i++) {
+			System.out.println((i+1) + ". 제품명:" + datas.get(i).getpName() + ", 가격: " + datas.get(i).getSellingPrice() + ", 수량: " + datas.get(i).getCnt());
+		}
+		int total = 0;
+		for (i = 0; i < datas.size(); i++) {
+			total += datas.get(i).getSellingPrice() * datas.get(i).getCnt();
+		}
+		System.out.println("==========================");
+		System.out.println("최종 금액은 " + total + "입니다 !");
+	}
 
 	// 장바구니 메뉴 출력
 	public void printCartMenu() {
