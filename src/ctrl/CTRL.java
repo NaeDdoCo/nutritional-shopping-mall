@@ -229,6 +229,12 @@ public class CTRL {
 									}
 
 								}
+								
+								if(couponArr.size() == 0) {
+									
+									break;
+									
+								}
 
 								view.printCpList(couponArr); // 쿠폰 리스트 출력 // 사용하지 않은 쿠폰만 출력
 
