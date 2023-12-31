@@ -292,10 +292,12 @@ public class CTRL {
 								if (cartArr.get(i).getPid() == productArr.get(j).getPID()) {
 
 									productDTO = new ProductDTO();
-									productDTO.setCnt(productArr.get(j).getCnt() - cartArr.get(i).getCnt());
+									productDTO.setCnt(cartArr.get(i).getCnt());
 									productDTO.setPID((productArr.get(j).getPID()));
 
 									productDAO.update(productDTO); // 제품의 남은 수량 조정
+									
+									break;
 
 								}
 
