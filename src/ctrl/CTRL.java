@@ -182,11 +182,13 @@ public class CTRL {
 
 					ArrayList<CartDTO> cartArr = cartDAO.selectAll(cartDTO); // / CartDTO 정보를 배열리스트에 저장
 
-					ProductDTO productDTO = new ProductDTO(); // 제품DTO 객체 생성
+					ProductDTO productDTO; // 제품DTO 객체 생성
 
 					ArrayList<ProductDTO> productArr = new ArrayList<ProductDTO>(); // ProductDTO 객체를 담을 배열리스트 선언
 
 					for (CartDTO c : cartArr) { // 로그인 유저의 장바구니의 제품 정보만 저장
+						
+						productDTO = new ProductDTO();
 
 						productDTO.setPID(c.getPid()); // 장바구니의 제품아이디를 제품DTO에 저장
 
