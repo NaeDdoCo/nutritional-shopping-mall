@@ -84,8 +84,8 @@ public class VIEW {
 		System.out.println("=====제품 목록=====");
 		int i;
 		for (i = 0; i < datas.size(); i++) {
-			System.out.println(
-					(i + 1) + "제품명: " + datas.get(i).getpName() + ", 가격: " + datas.get(i).getSellingPrice() + "재고: " + datas.get(i).getCnt());
+			System.out.println((i + 1) + " 제품명: "+ "(" + datas.get(i).getCategory() + ")" + datas.get(i).getpName() + ", 가격: " + datas.get(i).getSellingPrice()
+					+ ", 재고: " + datas.get(i).getCnt());
 		}
 		System.out.println("=================");
 	}
@@ -133,8 +133,9 @@ public class VIEW {
 	// 장바구니에 담긴 제품 & 최종금액 출력
 	public void printClist(ArrayList<ProductDTO> datas) {
 		System.out.println("===장바구니에 담긴 제품 목록===");
-		for (ProductDTO data : datas) {
-			System.out.println("제품명: " + data.getpName() + ", 가격: " + data.getSellingPrice() + "수량: " + data.getCnt());
+		int i;
+		for (i=0;i<datas.size();i++) {
+			System.out.println((i+1) + ". 제품명:" + datas.get(i).getpName() + ", 가격: " + datas.get(i).getSellingPrice() + ", 수량: " + datas.get(i).getCnt());
 		}
 		int total = 0;
 		for (int i = 0; i < datas.size(); i++) {
@@ -154,7 +155,7 @@ public class VIEW {
 	public String inputYN() {
 		String inputYN;
 		while (true) {
-			System.out.println("Y/N>> ");
+			System.out.println("쿠폰을 사용하시겠습니까? Y/N>> ");
 			inputYN = sc.next();
 			if (inputYN.equals("Y") || inputYN.equals("N")) {
 				// 이라면 정상입력 -> 리턴 inputYN
@@ -165,9 +166,11 @@ public class VIEW {
 		}
 		return inputYN;
 	}
-	public void addFail( ) {
+
+	public void addFail() {
 		System.out.println("장바구니에 추가 가능한 수량을 넘었습니다.");
 	}
+
 	public void useCoupon() {
 		System.out.println("쿠폰을 더 적용하시겠습니까 ?");
 	}
@@ -176,13 +179,11 @@ public class VIEW {
 	public void printCpList(ArrayList<CouponDTO> datas) {
 		System.out.println("=====쿠폰 목록=====");
 		int i;
-		for (i=0;i<datas.size();i++) {
-			System.out.println((i+1) + "쿠폰명: " + datas.get(i).getCouponName() + ", 할인율: " + datas.get(i).getDiscount());
+		for (i = 0; i < datas.size(); i++) {
+			System.out.println((i + 1) + ". 쿠폰명" + "(" + datas.get(i).getCategory() + ")" + datas.get(i).getCouponName() + ", 할인율: " + datas.get(i).getDiscount());
 		}
 		System.out.println("=================");
 		System.out.println("어떤 쿠폰을 사용하시겠습니까?");
 
 	}
 }
-
-
