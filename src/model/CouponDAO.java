@@ -16,7 +16,8 @@ public class CouponDAO {
 
 	// RAll, 쿠폰 목록 출력
 	// 출력대상 : 쿠폰이름 쿠폰번호 쿠폰할인율 쿠폰유효기간 쿠폰사용 가능한 카테고리
-	public static final String selectAll = "SELECT CPID, CPNAME, PERIOD, DISCOUNT, CATEGORY, USED FROM COUPON";
+	// WHERE = ? 해당 회원의 쿠폰만 출력 
+	public static final String selectAll = "SELECT CPID, CPNAME, PERIOD, DISCOUNT, CATEGORY, USED FROM COUPON WHERE = ?";
 
 	// ROne, 쿠폰번호 확인
 	// 선택한 쿠폰번호와 같은 행의 쿠폰번호와 할인율을 가져온다
@@ -44,7 +45,7 @@ public class CouponDAO {
 	// 쿠폰을 잘못주면 회수
 	private static final String deleteMID = "DELETE FROM COUPON WHERE MID = ?";
 
-	public ArrayList<CouponDTO> selectAll() {
+	public ArrayList<CouponDTO> selectAll(CouponDTO cpDTO) {
 		// DB에 연결해서 COUPON테이블에 있는 데이터를 불러온다
 		// 불러온 데이터를 DTO객체에 넣어준다
 		// 데이터가 들어간 객체를 리스트에 넣어준다
@@ -57,10 +58,11 @@ public class CouponDAO {
 			pstmt = conn.prepareStatement(selectAll);
 
 			ResultSet rs = pstmt.executeQuery();
+			pstmt.setString(1, cpDTO.getMID());
 
 			while (rs.next()) {
 
-				// 출력대상 : 쿠폰이름 쿠폰번호 쿠폰할인율 쿠폰유효기간 사용가능한 카테고리
+				// 대상 : 쿠폰이름 쿠폰번호 쿠폰할인율 쿠폰유효기간 사용가능한 카테고리
 				String CPID = rs.getString("CPID");
 				String couponName = rs.getString("CPNAME");
 				int discount = rs.getInt("DISCOUNT");
