@@ -69,7 +69,7 @@ public class CTRL {
 					MemberDTO memberDTO = view.login(); // 유저 정보가 담긴 멤버DTO를 반환 받아 변수에 저장
 
 					loginINFO = memberDAO.selectOne(memberDTO); // 로그인 정보 저장 // 멤버 정보를 SELECTONE => loginINFO
-					
+
 					continue;
 
 				} else if (action == 4) { // 회원가입
@@ -97,7 +97,7 @@ public class CTRL {
 					ProductDTO productDTO = new ProductDTO(); // 제품DTO 객체 생성
 
 					ArrayList<ProductDTO> productArr = productDAO.selectAll(productDTO); // 제품 리스트를 DB에서 가져와 배열리스트에 저장
-					
+
 					view.printPlist(productArr); // 상품 리스트 출력
 
 					while (true) {
@@ -115,9 +115,9 @@ public class CTRL {
 							// 구현 X
 
 						} else if (action == 2) { // 장바구니 추가
-							
+
 							boolean flag = false; // 장바구니에 선택 제품이 존재하는지 확인하기 위한 플래그
-							
+
 							int cnt = view.inputCnt(1, productDTO.getCnt()); // 수량 입력 받기
 
 							CartDTO cartDTO = new CartDTO(); // 장바구니DTO 객체 생성
@@ -145,7 +145,7 @@ public class CTRL {
 								cartDTO.setMid(loginINFO.getMID()); // 장바구니DTO에 유저 아이디 저장
 								cartDTO.setPid(productDTO.getPID()); // 장바구니DTO에 제품 아이디 저장
 								cartDTO.setCnt(cnt); // 장바구니DTO 객체에 수량 저장
-								
+
 								view.addResult(cartDAO.insert(cartDTO)); // 장바구니에 제품 정보 저장
 
 							} else { // flag가 true면
@@ -164,7 +164,7 @@ public class CTRL {
 								view.addResult(cartDAO.update(cartDTO)); // 장바구니 제품 정보 갱신
 
 							}
-							
+
 							break;
 
 						} else if (action == 3) {// 3. 제품 추천받기
@@ -189,11 +189,11 @@ public class CTRL {
 					for (CartDTO c : cartArr) { // 로그인 유저의 장바구니의 제품 정보만 저장
 
 						productDTO.setPID(c.getPid()); // 장바구니의 제품아이디를 제품DTO에 저장
-						
-						productDTO = productDAO.selectOne(productDTO); 
+
+						productDTO = productDAO.selectOne(productDTO);
 
 						if (productDTO != null) { // 해당 제품이 존재한다면
-							
+
 							productDTO.setCnt(c.getCnt());
 
 							productArr.add(productDTO); // 배열리스트에 객체를 저장
@@ -230,13 +230,13 @@ public class CTRL {
 									}
 
 								}
-								
-								if(couponArr.size() == 0) {
-									
+
+								if (couponArr.size() == 0) {
+
 									System.out.println("사용 가능한 쿠폰이 존재하지 않습니다.");
-									
+
 									break;
-									
+
 								}
 
 								view.printCpList(couponArr); // 쿠폰 리스트 출력 // 사용하지 않은 쿠폰만 출력
@@ -247,11 +247,14 @@ public class CTRL {
 
 								for (int i = 0; i < productArr.size(); i++) { // 모든 제품을 한번씩 확인
 
-									if (productArr.get(i).getCategory().equals(couponDTO.getCategory())) { // 제품의 카테고리와 쿠폰의 카테고리가 일치한다면
-										
-										double newSellingPrice = productArr.get(i).getSellingPrice() * (1 - 1.0*couponDTO.getDiscount()/100);
+									if (productArr.get(i).getCategory().equals(couponDTO.getCategory())) { // 제품의 카테고리와
+																											// 쿠폰의 카테고리가
+																											// 일치한다면
 
-										productArr.get(i).setSellingPrice((int)newSellingPrice); // 기존 값을 할인 값으로 대체
+										double newSellingPrice = productArr.get(i).getSellingPrice()
+												* (1 - 1.0 * couponDTO.getDiscount() / 100);
+
+										productArr.get(i).setSellingPrice((int) newSellingPrice); // 기존 값을 할인 값으로 대체
 
 									}
 
@@ -260,7 +263,7 @@ public class CTRL {
 								view.printClist(productArr); // 쿠폰을 적용한 장바구니 리스트 출력
 
 								couponDAO.update(couponDTO); // 사용한 쿠폰 상태를 변경
-								
+
 								System.out.println("쿠폰을 더 적용하시겠습니까"); // 쿠폰 관련 문구 출력
 
 								YN = view.inputYN(); // 쿠폰 적용 여부 입력 값 받음
@@ -277,52 +280,31 @@ public class CTRL {
 
 							}
 
-							for (int i = 0; i < cartArr.size(); i++) { // 제품의 남은 수량 조정
-
-								for (int j = 0; j < productArr.size(); j++) {
-									
-									if(cartArr.get(i).getPid() == productArr.get(j).getPID()) { 
-										
-										productDTO = new ProductDTO(); 
-										productDTO.setCnt(productArr.get(j).getCnt() - cartArr.get(i).getCnt());
-										productDTO.setPID((productArr.get(j).getPID()));
-								
-										productDAO.update(productDTO); 
-										
-									}
-
-								}
-
-							}
-
-							cartDTO.setMid(loginINFO.getMID()); // 해당 유저의 장바구니DB 비우기
-							cartDAO.delete(cartDTO); 
-
 						} else if (YN.equals("N")) {
-							
-							for (int i = 0; i < cartArr.size(); i++) { // 제품의 남은 수량 조정
 
-								for (int j = 0; j < productArr.size(); j++) {
-									
-									if(cartArr.get(i).getPid() == productArr.get(j).getPID()) { 
-										
-										productDTO = new ProductDTO(); 
-										productDTO.setCnt(productArr.get(j).getCnt() - cartArr.get(i).getCnt());
-										productDTO.setPID((productArr.get(j).getPID()));
-								
-										productDAO.update(productDTO); // 제품의 남은 수량 조정
-										
-									}
+			
+						}
+
+						for (int i = 0; i < cartArr.size(); i++) { // 제품의 남은 수량 조정
+
+							for (int j = 0; j < productArr.size(); j++) {
+
+								if (cartArr.get(i).getPid() == productArr.get(j).getPID()) {
+
+									productDTO = new ProductDTO();
+									productDTO.setCnt(productArr.get(j).getCnt() - cartArr.get(i).getCnt());
+									productDTO.setPID((productArr.get(j).getPID()));
+
+									productDAO.update(productDTO); // 제품의 남은 수량 조정
 
 								}
 
 							}
-
-							
-							cartDTO.setMid(loginINFO.getMID()); // 해당 유저의 장바구니DB 비우기
-							cartDAO.delete(cartDTO); 
 
 						}
+
+						cartDTO.setMid(loginINFO.getMID()); // 해당 유저의 장바구니DB 비우기
+						cartDAO.delete(cartDTO);
 
 					} else if (action == 2) { // 돌아가기
 
