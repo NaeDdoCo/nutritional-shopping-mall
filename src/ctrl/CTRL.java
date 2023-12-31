@@ -76,7 +76,7 @@ public class CTRL {
 
 				}
 
-			} else if (loginINFO.getGrade().equals("user")) { // 일반유저
+			} else if (loginINFO.getGrade().equals("USER")) { // 일반유저
 
 				view.printLoginMenu(); // 일반유저 메뉴출력
 
