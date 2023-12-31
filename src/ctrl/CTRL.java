@@ -246,7 +246,7 @@ public class CTRL {
 
 									if (productArr.get(i).getCategory() == couponDTO.getCategory()) { // 제품의 카테고리와 쿠폰의 카테고리가 일치한다면
 
-										productArr.get(i).setSellingPrice(productArr.get(i).getSellingPrice() * couponDTO.getDiscount()); // 기존 값을 할인 값으로 대체
+										productArr.get(i).setSellingPrice(productArr.get(i).getSellingPrice() * (couponDTO.getDiscount()/100)); // 기존 값을 할인 값으로 대체
 
 									}
 
