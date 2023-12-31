@@ -152,7 +152,7 @@ public class CTRL {
 
 								if (cartDTO.getCnt() + cnt > productDTO.getCnt()) { // 기존 수량 + 추가 수량이 제품 수량보다 많으면
 
-									System.out.println("장바구니에 추가 가능한 수량을 넘었습니다."); // 임시 출력
+									view.addFail();
 
 									continue; // while문 처음으로 되돌아감 // 다시 선택
 
@@ -266,7 +266,7 @@ public class CTRL {
 
 								couponDAO.update(couponDTO); // 사용한 쿠폰 상태를 변경
 
-								System.out.println("쿠폰을 더 적용하시겠습니까"); // 쿠폰 관련 문구 출력
+								view.useCoupon(); // 쿠폰 관련 문구 출력
 
 								YN = view.inputYN(); // 쿠폰 적용 여부 입력 값 받음
 
@@ -308,9 +308,13 @@ public class CTRL {
 						}
 						
 						view.printClist(productArr);
+						
+						System.out.println("구매성공!!");
 
 						cartDTO.setMid(loginINFO.getMID()); // 해당 유저의 장바구니DB 비우기
 						cartDAO.delete(cartDTO);
+						
+						System.out.println("장바구니 비우기");
 
 					} else if (action == 2) { // 돌아가기
 
