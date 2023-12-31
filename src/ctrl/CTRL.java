@@ -189,10 +189,14 @@ public class CTRL {
 					for (CartDTO c : cartArr) { // 로그인 유저의 장바구니의 제품 정보만 저장
 
 						productDTO.setPID(c.getPid()); // 장바구니의 제품아이디를 제품DTO에 저장
+						
+						productDTO = productDAO.selectOne(productDTO); 
 
-						if (productDAO.selectOne(productDTO) != null) { // 해당 제품이 존재한다면
+						if (productDTO != null) { // 해당 제품이 존재한다면
+							
+							productDTO.setCnt(c.getCnt());
 
-							productArr.add(productDAO.selectOne(productDTO)); // 배열리스트에 객체를 저장
+							productArr.add(productDTO); // 배열리스트에 객체를 저장
 
 						}
 
