@@ -152,7 +152,7 @@ public class CTRL {
 
 								if (cartDTO.getCnt() + cnt > productDTO.getCnt()) { // 기존 수량 + 추가 수량이 제품 수량보다 많으면
 
-									view.addFail();
+									view.addFail(); // 추가 수량이 제품 수량보다 많을 경우의 메세지 출력
 
 									continue; // while문 처음으로 되돌아감 // 다시 선택
 
@@ -196,7 +196,7 @@ public class CTRL {
 
 						if (productDTO != null) { // 해당 제품이 존재한다면
 
-							productDTO.setCnt(c.getCnt());
+							productDTO.setCnt(c.getCnt()); // productDTO의 수량을 장바구니의 수량으로 변경
 
 							productArr.add(productDTO); // 배열리스트에 객체를 저장
 
@@ -219,7 +219,7 @@ public class CTRL {
 							while (true) {
 
 								CouponDTO couponDTO = new CouponDTO(); // 쿠폰DTO의 객체를 생성
-								couponDTO.setMID(loginINFO.getMID());
+								couponDTO.setMID(loginINFO.getMID()); // 쿠폰DTO에 유저 아이디 저장
 
 								ArrayList<CouponDTO> couponArr = couponDAO.selectAll(couponDTO); // 쿠폰 정보를 배열리스트에 저장
 
@@ -233,7 +233,7 @@ public class CTRL {
 
 								}
 
-								if (couponArr.size() == 0) {
+								if (couponArr.size() == 0) { // 쿠폰이 존재하지 않는 다면
 
 									System.out.println("사용 가능한 쿠폰이 존재하지 않습니다.");
 
@@ -254,7 +254,7 @@ public class CTRL {
 																											// 일치한다면
 
 										double newSellingPrice = productArr.get(i).getSellingPrice()
-												* (1 - 1.0 * couponDTO.getDiscount() / 100);
+												* (1 - 1.0 * couponDTO.getDiscount() / 100); // 할인율을 적용한 금액 계산
 
 										productArr.get(i).setSellingPrice((int) newSellingPrice); // 기존 값을 할인 값으로 대체
 
@@ -307,14 +307,10 @@ public class CTRL {
 
 						}
 						
-						view.printClist(productArr);
+						view.printBuyList(productArr);
 						
-						System.out.println("구매성공!!");
-
 						cartDTO.setMid(loginINFO.getMID()); // 해당 유저의 장바구니DB 비우기
 						cartDAO.delete(cartDTO);
-						
-						System.out.println("장바구니 비우기");
 
 					} else if (action == 2) { // 돌아가기
 
