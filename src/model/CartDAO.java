@@ -10,7 +10,7 @@ public class CartDAO {
 	private Connection conn; //DB와의 연결을 담당
 	private PreparedStatement pstmt; // CRUD 수행을 담당
 
-	static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE=MID?";
+	static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE MID=?";
 	static final String SELECTONE="SELECT (CID,MID,CNT) FROM CART WHERE PID=?";
 	static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),?,?,?)";
 	static final String UPDATE="UPDATE CART SET CNT = ? WHERE PID = ?";
