@@ -10,7 +10,7 @@ public class CartDAO {
 	private Connection conn; //DB와의 연결을 담당
 	private PreparedStatement pstmt; // CRUD 수행을 담당
 
-	static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART";
+	static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE=MID?";
 	static final String SELECTONE="SELECT (CID,MID,CNT) FROM CART WHERE PID=?";
 	static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),'?',?,?)";
 	static final String UPDATE="UPDATE CART SET CNT = ? WHERE PID = ?";
@@ -30,7 +30,7 @@ public class CartDAO {
 	 */
 
 
-	//장바구니 목록 출력
+	//장바구니 목록 조회
 	public ArrayList<CartDTO> selectAll(CartDTO cartDTO){
 		//반환해 줄 cdatas 생성
 		ArrayList<CartDTO> cdatas = new ArrayList<CartDTO>(); //!null
@@ -38,9 +38,9 @@ public class CartDAO {
 		conn=JDBCUtil.connect(); //DB연결
 		try {
 			pstmt=conn.prepareStatement(SELECTALL);
-//			static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART";
+//			static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE = MID?";
 			ResultSet rs=pstmt.executeQuery(); //쿼리 실행 후 결과로 나온 데이터를 rs에 담기
-
+			pstmt.setString(1, cartDTO.getMid());
 			while(rs.next()) { //결과 데이터가 있을때 까지 반복->rs의 결과값을 data에 담아 cdatas에 저장
 				CartDTO data=new CartDTO();
 				data.setCid(rs.getInt("CID"));
