@@ -115,12 +115,13 @@ public class CTRL {
 							// 구현 X
 
 						} else if (action == 2) { // 장바구니 추가
+							
+							boolean flag = false; // 장바구니에 선택 제품이 존재하는지 확인하기 위한 플래그
+							
+							int cnt = view.inputCnt(1, productDTO.getCnt()); // 수량 입력 받기
 
 							CartDTO cartDTO = new CartDTO(); // 장바구니DTO 객체 생성
-
-							boolean flag = false; // 장바구니에 선택 제품이 존재하는지 확인하기 위한 플래그
-
-							int cnt = view.inputCnt(1, productDTO.getCnt()); // 수량 입력 받기
+							cartDTO.setMid(loginINFO.getMID());
 
 							ArrayList<CartDTO> cartArr = cartDAO.selectAll(cartDTO); // 장바구니 리스트를 DB에서 가져와 배열리스트에 저장
 
