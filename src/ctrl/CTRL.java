@@ -70,7 +70,7 @@ public class CTRL {
 
 					loginINFO = memberDAO.selectOne(memberDTO); // 로그인 정보 저장 // 멤버 정보를 SELECTONE => loginINFO
 
-					continue;
+					view.loginResult(loginINFO);
 
 				} else if (action == 4) { // 회원가입
 
@@ -306,6 +306,8 @@ public class CTRL {
 							}
 
 						}
+						
+						view.printClist(productArr);
 
 						cartDTO.setMid(loginINFO.getMID()); // 해당 유저의 장바구니DB 비우기
 						cartDAO.delete(cartDTO);
