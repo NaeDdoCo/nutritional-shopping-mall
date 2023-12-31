@@ -69,6 +69,8 @@ public class CTRL {
 					MemberDTO memberDTO = view.login(); // 유저 정보가 담긴 멤버DTO를 반환 받아 변수에 저장
 
 					loginINFO = memberDAO.selectOne(memberDTO); // 로그인 정보 저장 // 멤버 정보를 SELECTONE => loginINFO
+					
+					continue;
 
 				} else if (action == 4) { // 회원가입
 
@@ -95,6 +97,8 @@ public class CTRL {
 					ProductDTO productDTO = new ProductDTO(); // 제품DTO 객체 생성
 
 					ArrayList<ProductDTO> productArr = productDAO.selectAll(productDTO); // 제품 리스트를 DB에서 가져와 배열리스트에 저장
+					
+					view.printPlist(productArr); // 상품 리스트 출력
 
 					while (true) {
 
