@@ -233,6 +233,8 @@ public class CTRL {
 								
 								if(couponArr.size() == 0) {
 									
+									System.out.println("사용 가능한 쿠폰이 존재하지 않습니다.");
+									
 									break;
 									
 								}
@@ -245,7 +247,7 @@ public class CTRL {
 
 								for (int i = 0; i < productArr.size(); i++) { // 모든 제품을 한번씩 확인
 
-									if (productArr.get(i).getCategory() == couponDTO.getCategory()) { // 제품의 카테고리와 쿠폰의 카테고리가 일치한다면
+									if (productArr.get(i).getCategory().equals(couponDTO.getCategory())) { // 제품의 카테고리와 쿠폰의 카테고리가 일치한다면
 										
 										double newSellingPrice = productArr.get(i).getSellingPrice() * (1 - 1.0*couponDTO.getDiscount()/100);
 
@@ -258,7 +260,7 @@ public class CTRL {
 								view.printClist(productArr); // 쿠폰을 적용한 장바구니 리스트 출력
 
 								couponDAO.update(couponDTO); // 사용한 쿠폰 상태를 변경
-
+								
 								System.out.println("쿠폰을 더 적용하시겠습니까"); // 쿠폰 관련 문구 출력
 
 								YN = view.inputYN(); // 쿠폰 적용 여부 입력 값 받음
