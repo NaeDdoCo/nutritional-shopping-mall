@@ -192,7 +192,7 @@ public class CTRL {
 
 						if (productDAO.selectOne(productDTO) != null) { // 해당 제품이 존재한다면
 
-							productArr.add(productDTO); // 배열리스트에 객체를 저장
+							productArr.add(productDAO.selectOne(productDTO)); // 배열리스트에 객체를 저장
 
 						}
 
