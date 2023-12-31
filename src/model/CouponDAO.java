@@ -16,7 +16,7 @@ public class CouponDAO {
 
 	// RAll, 쿠폰 목록 출력
 	// 출력대상 : 쿠폰이름 쿠폰번호 쿠폰할인율 쿠폰유효기간 쿠폰사용 가능한 카테고리
-	public static final String selectAll = "SELECT CPID, CPNAME, PERIOD, DISCOUNT, CATEGORY FROM COUPON";
+	public static final String selectAll = "SELECT CPID, CPNAME, PERIOD, DISCOUNT, CATEGORY, USED FROM COUPON";
 
 	// ROne, 쿠폰번호 확인
 	// 선택한 쿠폰번호와 같은 행의 쿠폰번호와 할인율을 가져온다
@@ -66,6 +66,7 @@ public class CouponDAO {
 				int discount = rs.getInt("DISCOUNT");
 				LocalDateTime period = rs.getTimestamp("PERIOD").toLocalDateTime();
 				String category = rs.getString("CATEGORY");
+				String used = rs.getString("USED");
 
 				CouponDTO couponDTO = new CouponDTO();
 
@@ -74,6 +75,7 @@ public class CouponDAO {
 				couponDTO.setDiscount(discount);
 				couponDTO.setPeriod(period);
 				couponDTO.setCategory(category);
+				couponDTO.setUsed(used);
 
 				cDTO.add(couponDTO);
 			}
