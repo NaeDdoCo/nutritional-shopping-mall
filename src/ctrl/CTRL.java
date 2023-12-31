@@ -217,8 +217,9 @@ public class CTRL {
 							while (true) {
 
 								CouponDTO couponDTO = new CouponDTO(); // 쿠폰DTO의 객체를 생성
+								couponDTO.setMID(loginINFO.getMID());
 
-								ArrayList<CouponDTO> couponArr = couponDAO.selectAll(); // 쿠폰 정보를 배열리스트에 저장
+								ArrayList<CouponDTO> couponArr = couponDAO.selectAll(couponDTO); // 쿠폰 정보를 배열리스트에 저장
 
 								for (int i = 0; i < couponArr.size(); i++) {
 
@@ -245,8 +246,10 @@ public class CTRL {
 								for (int i = 0; i < productArr.size(); i++) { // 모든 제품을 한번씩 확인
 
 									if (productArr.get(i).getCategory() == couponDTO.getCategory()) { // 제품의 카테고리와 쿠폰의 카테고리가 일치한다면
+										
+										double newSellingPrice = productArr.get(i).getSellingPrice() * (1 - 1.0*couponDTO.getDiscount()/100);
 
-										productArr.get(i).setSellingPrice(productArr.get(i).getSellingPrice() * (couponDTO.getDiscount()/100)); // 기존 값을 할인 값으로 대체
+										productArr.get(i).setSellingPrice((int)newSellingPrice); // 기존 값을 할인 값으로 대체
 
 									}
 
