@@ -144,8 +144,8 @@ public class CTRL {
 								cartDTO.setMid(loginINFO.getMID()); // 장바구니DTO에 유저 아이디 저장
 								cartDTO.setPid(productDTO.getPID()); // 장바구니DTO에 제품 아이디 저장
 								cartDTO.setCnt(cnt); // 장바구니DTO 객체에 수량 저장
-
-								cartDAO.insert(cartDTO); // 장바구니에 제품 정보 저장
+								
+								view.addResult(cartDAO.insert(cartDTO)); // 장바구니에 제품 정보 저장
 
 							} else { // flag가 true면
 
@@ -160,9 +160,11 @@ public class CTRL {
 								cartDTO.setPid(productDTO.getPID()); // 제품 아이디 저장
 								cartDTO.setCnt(cartDTO.getCnt() + cnt); // 기존 수량에 입력 수량을 추가
 
-								cartDAO.update(cartDTO); // 장바구니 제품 정보 갱신
+								view.addResult(cartDAO.update(cartDTO)); // 장바구니 제품 정보 갱신
 
 							}
+							
+							break;
 
 						} else if (action == 3) {// 3. 제품 추천받기
 
