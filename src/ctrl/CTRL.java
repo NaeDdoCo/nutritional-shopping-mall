@@ -177,18 +177,9 @@ public class CTRL {
 				} else if (action == 3) { // 장바구니 출력
 
 					CartDTO cartDTO = new CartDTO(); // 장바구니DTO 객체 생성
+					cartDTO.setMid(loginINFO.getMID());
 
 					ArrayList<CartDTO> cartArr = cartDAO.selectAll(cartDTO); // / CartDTO 정보를 배열리스트에 저장
-
-					for (CartDTO c : cartArr) { // 로그인 중 유저의 장바구니 정보가 아닌 경우 삭제
-
-						if (c.getMid() != loginINFO.getMID()) { // 장바구니의 멤버 아이디와 로그인 중인 멤버 아이디가 불일치 한다면
-
-							cartArr.remove(c); // 해당 정보를 삭제
-
-						}
-
-					}
 
 					ProductDTO productDTO = new ProductDTO(); // 제품DTO 객체 생성
 
