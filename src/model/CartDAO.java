@@ -12,7 +12,7 @@ public class CartDAO {
 
 	static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE=MID?";
 	static final String SELECTONE="SELECT (CID,MID,CNT) FROM CART WHERE PID=?";
-	static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),'?',?,?)";
+	static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),?,?,?)";
 	static final String UPDATE="UPDATE CART SET CNT = ? WHERE PID = ?";
 	static final String DELETE="DELETE FROM CART WHERE MID = ?"; //카트 전체 비우기
 	private static final String DELETE_PID="DELETE FROM CART WHERE MID =? AND PID= ?"; //부분 삭제
@@ -39,8 +39,8 @@ public class CartDAO {
 		try {
 			pstmt=conn.prepareStatement(SELECTALL);
 //			static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE = MID?";
-			ResultSet rs=pstmt.executeQuery(); //쿼리 실행 후 결과로 나온 데이터를 rs에 담기
 			pstmt.setString(1, cartDTO.getMid());
+			ResultSet rs=pstmt.executeQuery(); //쿼리 실행 후 결과로 나온 데이터를 rs에 담기
 			while(rs.next()) { //결과 데이터가 있을때 까지 반복->rs의 결과값을 data에 담아 cdatas에 저장
 				CartDTO data=new CartDTO();
 				data.setCid(rs.getInt("CID"));
