@@ -23,6 +23,10 @@ public class ProductDAO {
 	
 	// U, 제품 구매 시 재고 차감
 	// PID로 확인
+	private static final String insert = "INSERT INTO PRODUCT (PID, PNAME, COSTPRICE, REGULARPRICE, SELLINGPRICE, CNT, INGREDIENT, USAGE, EXP, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	// U, 제품 구매 시 재고 차감
+	// PID로 확인
 	private static final String update = "UPDATE PRODUCT SET CNT = CNT - ? WHERE PID = ?";
 
 	// 제품 목록 출력
@@ -106,10 +110,44 @@ public class ProductDAO {
 		return ret;
 	}
 	
+	// 웹 크롤링 시 추가
+	// - 필요한 멤버변수: all
 	// TODO: 제품 정보 추가
-	private boolean insert(ProductDTO productDTO)
+	public boolean insert(ProductDTO productDTO)
 	{
-		return false;
+		if (productDTO == null) {
+			return false;
+		}
+		
+		int res = 0;
+		conn = JDBCUtil.connect();
+		try {
+			pstmt = conn.prepareStatement(insert);
+
+			pstmt.setInt(1, productDTO.getPID());
+			pstmt.setString(2, productDTO.getpName());
+			pstmt.setInt(3, productDTO.getCostPrice());
+			pstmt.setInt(4, productDTO.getRegularPrice());
+			pstmt.setInt(5, productDTO.getSellingPrice());
+			pstmt.setInt(6, productDTO.getCnt());
+			pstmt.setString(7, productDTO.getIngredient());
+			pstmt.setString(8, productDTO.getUsage());
+			pstmt.setString(9, productDTO.getExp());
+			pstmt.setString(10, productDTO.getCategory());
+			
+			res = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.disconnection(pstmt, conn);
+		}
+		
+		if (res > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	// 제품 구매
