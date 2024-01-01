@@ -10,11 +10,11 @@ public class CartDAO {
 	private Connection conn; //DB와의 연결을 담당
 	private PreparedStatement pstmt; // CRUD 수행을 담당
 
-	static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE MID=?";
-	static final String SELECTONE="SELECT (CID,MID,CNT) FROM CART WHERE PID=?";
-	static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),?,?,?)";
-	static final String UPDATE="UPDATE CART SET CNT = ? WHERE PID = ?";
-	static final String DELETE="DELETE FROM CART WHERE MID = ?"; //카트 전체 비우기
+	private static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE MID=?";
+	private static final String SELECTONE="SELECT (CID,MID,CNT) FROM CART WHERE PID=?";
+	private static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),?,?,?)";
+	private static final String UPDATE="UPDATE CART SET CNT = ? WHERE PID = ?";
+	private static final String DELETE="DELETE FROM CART WHERE MID = ?"; //카트 전체 비우기
 	private static final String DELETE_PID="DELETE FROM CART WHERE MID =? AND PID= ?"; //부분 삭제
 
 
@@ -30,7 +30,7 @@ public class CartDAO {
 	 */
 
 
-	//장바구니 목록 조회
+	//장바구니 목록 조회: MID를 입력받아 일치하는 Cart내역 반환
 	public ArrayList<CartDTO> selectAll(CartDTO cartDTO){
 		//반환해 줄 cdatas 생성
 		ArrayList<CartDTO> cdatas = new ArrayList<CartDTO>(); //!null
@@ -38,9 +38,10 @@ public class CartDAO {
 		conn=JDBCUtil.connect(); //DB연결
 		try {
 			pstmt=conn.prepareStatement(SELECTALL);
-//			static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE = MID?";
+//			static final String SELECTALL="SELECT CID,PID,MID,CNT FROM CART WHERE MID=?";
 			pstmt.setString(1, cartDTO.getMid());
 			ResultSet rs=pstmt.executeQuery(); //쿼리 실행 후 결과로 나온 데이터를 rs에 담기
+			
 			while(rs.next()) { //결과 데이터가 있을때 까지 반복->rs의 결과값을 data에 담아 cdatas에 저장
 				CartDTO data=new CartDTO();
 				data.setCid(rs.getInt("CID"));
@@ -59,17 +60,17 @@ public class CartDAO {
 		return cdatas;
 	}
 
-	public CartDTO selectOne(CartDTO cDTO){ 
+	public CartDTO selectOne(CartDTO cartDTO){ 
 		//      PID를 입력받아 존재여부 확인?? -> 현재 미사용
 		CartDTO data = null;
 		conn=JDBCUtil.connect();//DB연결
 		try {
 			pstmt=conn.prepareStatement(SELECTONE);
 //			static final String SELECTONE="SELECT (CID,MID,CNT) FROM CART WHERE PID=?";
-			pstmt.setInt(1, cDTO.getPid());
+			pstmt.setInt(1, cartDTO.getPid());
 			ResultSet rs=pstmt.executeQuery(); //입력된 PID에 해당하는 결과 데이터를 rs 저장
 
-			while(rs.next()) { //PID가 일치한다면 data에 저장되어 반환 ,아니라면 초기값 null 반환
+			while(rs.next()) { 
 				data=new CartDTO();
 				data.setCid(rs.getInt("CID"));
 				data.setMid(rs.getString("MID"));
@@ -87,20 +88,20 @@ public class CartDAO {
 
 	//장바구니 추가
 	public boolean insert (CartDTO cartDTO){
-		if(cartDTO.getCnt()<=0) { //입력할 cnt가 0 또는 음수라면
-			return false;			//insert 실패
+		if(cartDTO.getCnt()==0) { 		//입력할 cnt가 0이라면
+			return false;				//insert 실패
 		}
 		conn=JDBCUtil.connect(); //DB연결
 		try {
 			pstmt=conn.prepareStatement(INSERT);
-//			static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),'?',?,?)";
+//			static final String INSERT="INSERT INTO CART VALUES((SELECT NVL(MAX(CID),0) + 1 FROM CART),?,?,?)";
 			pstmt.setString(1, cartDTO.getMid());
 			pstmt.setInt(2, cartDTO.getPid());
 			System.out.println(cartDTO.getCnt());
 			pstmt.setInt(3, cartDTO.getCnt()); 
 			int result = pstmt.executeUpdate(); //추가된 행의 수 저장
-			if(result<=0) { 	//추가된 행의 수가 없다면
-				return false;	//INSERT 실패 반환
+			if(result<=0) { 					//추가된 행의 수가 없다면
+				return false;					//INSERT 실패 반환
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,8 +121,8 @@ public class CartDAO {
 			pstmt.setInt(1, cartDTO.getCnt());
 			pstmt.setInt(2, cartDTO.getPid());
 			int result = pstmt.executeUpdate(); //변경된 행의 수 저장
-			if(result<=0) { //변경된 행의 수가 없다면 
-				return false; //UPDATE 실패 반환
+			if(result<=0) { 					//변경된 행의 수가 없다면 
+				return false; 					//UPDATE 실패 반환
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,8 +141,8 @@ public class CartDAO {
 //			static final String DELETE="DELETE FROM CART WHERE MID = ?";
 			pstmt.setString(1, cartDTO.getMid());
 			int result = pstmt.executeUpdate(); //삭제된 행의 수 저장
-			if(result<=0) {  //삭제가 이루어지지 않았다면
-				return false;  //DELETE 실패 반환
+			if(result<=0) {  					//삭제가 이루어지지 않았다면
+				return false;  					//DELETE 실패 반환
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
